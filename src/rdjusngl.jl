@@ -1,0 +1,93 @@
+function rdjusngl(wvdir, obs ; coef=1.2310680e-07)
+# -------------------------------------------------------------------------
+# read wave data for observation with multi sensors; eg array observation.
+# -------------------------------------------------------------------------
+# wvdir : base directory of wavedata     *
+# obs   : obsservation site name String  *
+# count files in a obs directory 
+    fldir = joinpath(wvdir, obs)
+    wvfl  = readdir(fldir)
+    nfl   = length(wvfl)
+# println(nfl)
+# check for no. of files in a point directory 
+#  for ipnt = 2:npnt
+#      if nfl[ipnt] != nfl[1]
+#        error("No. of files in points is different each other at \""*obs*"\". Please check!")
+#      end
+#   end
+    nfl0 = nfl
+# temporary file for each wave data
+    wave=Array{NamedTuple{(:headtime, :nwave, :hz, :nch, :chid, :wave), 
+            Tuple{Vector{Int64}, Int64, Int64, Int64, Vector{String}, Matrix{Int64}}}}(undef,nfl0);
+# read wave data
+    for ifl = 1:nfl0
+        fldir = joinpath(wvdir, obs)
+        wvfl  = readdir(fldir)
+        flnm2=joinpath(fldir,wvfl[ifl])
+        data = read(flnm2);
+        wave[ifl] = rdwin1_ch(data,3)
+#         println("file name = ", point[ipnt],"/",wvfl[ifl],", head time = ",
+#            wave.headtime, ", hz = ",wave.hz, ", (nwave,nch) = ",(wave.nwave,wave.nch), 
+#            ", chid", wave.chid)
+    end
+# check for CH id among files
+    for ifl = 2:nfl0
+        if wave[ifl].chid != wave[1].chid
+            println(wave[ifl].chid,wave[ifl].chid)
+            error("ch ID are different each other at \""*obs*"/"*"\". Please check!")
+        end    
+    end
+# check for head time among points
+#   for ifl = 1:nfl0
+#      for ipnt = 2:npnt
+#         if wave[ifl,ipnt].headtime != wave[ifl,1].headtime
+#           println((ifl,ipnt,wave[ifl,ipnt].headtime, wave[ifl,1].headtime))
+#           error("head time is different among points at \""*obs*"/"*point[ipnt]*"\". Please check!")
+#         end    
+#      end
+#   end
+# check for hz among files
+    for ifl = 2:nfl0
+        if wave[ifl].hz != wave[1].hz
+            println((ifl,ipnt,wave[ifl].hz, wave[1].hz))
+            error("sampling rate is different among points and files at \""*obs*"/"*"\". Please check!")
+        end    
+    end
+# check for nwave among files
+    for ifl = 1:nfl0
+        if wave[ifl].nwave != wave[1].nwave
+            println((ifl,ipnt,wave[ifl].nwave, wave[1].nwave))
+            error("no of wavedata is different among points and files at \""*obs*"/"*"\". Please check!")
+        end    
+    end
+# set waveF information
+    headtime = wave[1].headtime
+    nwave = wave[1].nwave * nfl0
+    hz = wave[1].hz
+    chid = wave[1].chid
+    nch = wave[1].nch
+# set waveF data
+    waveF = Array{Float64}(undef,nwave,nch)
+    wave_pnt = Float64.(wave[1].wave)
+    for ifl = 2:nfl0
+        wave_pnt = vcat(wave_pnt,Float64.(wave[ifl].wave))
+    end
+#         println("obs name = ", point[ipnt],", head time = ",
+#            wave[ifl,ipnt].headtime, ", hz = ",
+#            wave[ifl,ipnt].hz, ", (nwave,nch) = ",(wave[ifl,ipnt].nwave,wave[ifl,ipnt].nch), 
+#            ", chid", wave[ifl,ipnt].chid
+#         )
+    waveF[:] = wave_pnt[:]
+    waveF = waveF * coef
+    for ich=1:nch
+        waveF[1:nwave,ich] = waveF[1:nwave,ich] .- sum(waveF[1:nwave,ich])/nwave
+    end
+# println(headtime)
+# println(nwave)
+# println(hz)
+# println(chid)
+# println(nch)
+# print_matrix_i("temp.txt",wave[1,1].wave)
+# print_matrix("temp2.txt",waveF)
+    return (;headtime, nwave, hz, nch, chid, waveF)
+end

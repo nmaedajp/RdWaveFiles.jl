@@ -1,4 +1,4 @@
-function rdjusngl(wvdir, obs ; coef=1.2310680e-07)
+function rdjusngl(wvdir, obs ; coef=1.2310680e-07, rm_offset=1)
 # -------------------------------------------------------------------------
 # read wave data for observation with multi sensors; eg array observation.
 # -------------------------------------------------------------------------
@@ -6,27 +6,19 @@ function rdjusngl(wvdir, obs ; coef=1.2310680e-07)
 # obs   : obsservation site name String  *
 # count files in a obs directory 
     fldir = joinpath(wvdir, obs)
-    wvfl  = readdir(fldir)
-    nfl   = length(wvfl)
-# println(nfl)
-# check for no. of files in a point directory 
-#  for ipnt = 2:npnt
-#      if nfl[ipnt] != nfl[1]
-#        error("No. of files in points is different each other at \""*obs*"\". Please check!")
-#      end
-#   end
-    nfl0 = nfl
+    wvfl=flnmck(readdir(fldir))
+    nfl0 = length(wvfl)
 # temporary file for each wave data
     wave=Array{NamedTuple{(:headtime, :nwave, :hz, :nch, :chid, :wave), 
             Tuple{Vector{Int64}, Int64, Int64, Int64, Vector{String}, Matrix{Int64}}}}(undef,nfl0);
 # read wave data
     for ifl = 1:nfl0
         fldir = joinpath(wvdir, obs)
-        wvfl  = readdir(fldir)
-        flnm2=joinpath(fldir,wvfl[ifl])
+        wvfl = flnmck(readdir(fldir))
+        flnm2 = joinpath(fldir,wvfl[ifl])
         data = read(flnm2);
-        wave[ifl] = rdwin1_ch(data,3)
-#         println("file name = ", point[ipnt],"/",wvfl[ifl],", head time = ",
+        wave[ifl] = rdwin1_ch(data)
+#         println("file name = ", pnt[ipnt],"/",wvfl[ifl],", head time = ",
 #            wave.headtime, ", hz = ",wave.hz, ", (nwave,nch) = ",(wave.nwave,wave.nch), 
 #            ", chid", wave.chid)
     end
@@ -42,7 +34,7 @@ function rdjusngl(wvdir, obs ; coef=1.2310680e-07)
 #      for ipnt = 2:npnt
 #         if wave[ifl,ipnt].headtime != wave[ifl,1].headtime
 #           println((ifl,ipnt,wave[ifl,ipnt].headtime, wave[ifl,1].headtime))
-#           error("head time is different among points at \""*obs*"/"*point[ipnt]*"\". Please check!")
+#           error("head time is different among points at \""*obs*"/"*pnt[ipnt]*"\". Please check!")
 #         end    
 #      end
 #   end
@@ -72,17 +64,19 @@ function rdjusngl(wvdir, obs ; coef=1.2310680e-07)
     for ifl = 2:nfl0
         wave_pnt = vcat(wave_pnt,Float64.(wave[ifl].wave))
     end
-#         println("obs name = ", point[ipnt],", head time = ",
+#         println("obs name = ", pnt[ipnt],", head time = ",
 #            wave[ifl,ipnt].headtime, ", hz = ",
 #            wave[ifl,ipnt].hz, ", (nwave,nch) = ",(wave[ifl,ipnt].nwave,wave[ifl,ipnt].nch), 
 #            ", chid", wave[ifl,ipnt].chid
 #         )
     waveF[:] = wave_pnt[:]
     waveF = waveF * coef
-    for ich=1:nch
-        waveF[1:nwave,ich] = waveF[1:nwave,ich] .- sum(waveF[1:nwave,ich])/nwave
+    if rm_offset > 0
+      for ich=1:nch
+          waveF[1:nwave,ich] = waveF[1:nwave,ich] .- sum(waveF[1:nwave,ich])/nwave
+      end
     end
-# println(headtime)
+    # println(headtime)
 # println(nwave)
 # println(hz)
 # println(chid)

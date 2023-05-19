@@ -1,4 +1,4 @@
-function rdwin1_ch(data, nch)
+function rdwin1_ch(data; nch=3)
 # Array definition 
     headtime  = Array{Int64}(undef,6)
     hz_each   = Array{Int64}(undef,60,nch)

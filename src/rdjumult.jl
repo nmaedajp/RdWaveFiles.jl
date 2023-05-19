@@ -1,4 +1,4 @@
-function rdjumult(wvdir, obs, pnt; coef=1.2310680e-07)
+function rdjumult(wvdir, obs, pnt; coef=1.2310680e-07, rm_offset=1)
 # -------------------------------------------------------------------------
 # read wave data for observation with multi sensors; eg array observation.
 # -------------------------------------------------------------------------
@@ -9,8 +9,9 @@ function rdjumult(wvdir, obs, pnt; coef=1.2310680e-07)
     nfl = Array{Int64}(undef, npnt)
 # count files in a point directory 
     for ipnt =1:npnt
-        fldir = joinpath(wvdir, obs, point[ipnt])
-        wvfl  = readdir(fldir)
+        fldir = joinpath(wvdir, obs, pnt[ipnt])
+        wvfl = flnmck(readdir(fldir))
+#        println(wvfl)
         nfl[ipnt] = length(wvfl)
     end
 # println(nfl)
@@ -27,12 +28,12 @@ function rdjumult(wvdir, obs, pnt; coef=1.2310680e-07)
 # read wave data
     for ipnt =1:npnt
         for ifl = 1:nfl0
-            fldir = joinpath(wvdir, obs, point[ipnt])
-            wvfl  = readdir(fldir)
+            fldir = joinpath(wvdir, obs, pnt[ipnt])
+            wvfl = flnmck(readdir(fldir))
             flnm2=joinpath(fldir,wvfl[ifl])
             data = read(flnm2);
-            wave[ifl,ipnt] = rdwin1_ch(data,3)
-#         println("file name = ", point[ipnt],"/",wvfl[ifl],", head time = ",
+            wave[ifl,ipnt] = rdwin1_ch(data)
+#         println("file name = ", pnt[ipnt],"/",wvfl[ifl],", head time = ",
 #            wave.headtime, ", hz = ",wave.hz, ", (nwave,nch) = ",(wave.nwave,wave.nch), 
 #            ", chid", wave.chid)
         end
@@ -41,8 +42,8 @@ function rdjumult(wvdir, obs, pnt; coef=1.2310680e-07)
     for ipnt = 1:npnt
         for ifl = 2:nfl0
             if wave[ifl,ipnt].chid != wave[1,ipnt].chid
-                println(wave[ifl,ipnt].chid,wave[ifl,1].chid)
-                error("ch ID are different each other at \""*obs*"/"*point[ipnt]*"\". Please check!")
+                println(wave[ifl,ipnt].chid,wave[1,ipnt].chid)
+                error("ch ID are different each other at \""*obs*"/"*pnt[ipnt]*"\". Please check!")
             end    
         end
     end
@@ -51,7 +52,7 @@ function rdjumult(wvdir, obs, pnt; coef=1.2310680e-07)
         for ipnt = 2:npnt
             if wave[ifl,ipnt].headtime != wave[ifl,1].headtime
                println((ifl,ipnt,wave[ifl,ipnt].headtime, wave[ifl,1].headtime))
-               error("head time is different among points at \""*obs*"/"*point[ipnt]*"\". Please check!")
+               error("head time is different among points at \""*obs*"/"*pnt[ipnt]*"\". Please check!")
             end    
         end
     end
@@ -60,7 +61,7 @@ function rdjumult(wvdir, obs, pnt; coef=1.2310680e-07)
         for ipnt = 1:npnt
             if wave[ifl,ipnt].hz != wave[1,1].hz
                 println((ifl,ipnt,wave[ifl,ipnt].hz, wave[1,1].hz))
-                error("sampling rate is different among points and files at \""*obs*"/"*point[ipnt]*"\". Please check!")
+                error("sampling rate is different among points and files at \""*obs*"/"*pnt[ipnt]*"\". Please check!")
             end    
         end
     end
@@ -69,7 +70,7 @@ function rdjumult(wvdir, obs, pnt; coef=1.2310680e-07)
         for ipnt = 1:npnt
             if wave[ifl,ipnt].nwave != wave[1,1].nwave
                 println((ifl,ipnt,wave[ifl,ipnt].nwave, wave[1,1].nwave))
-                error("no of wavedata is different among points and files at \""*obs*"/"*point[ipnt]*"\". Please check!")
+                error("no of wavedata is different among points and files at \""*obs*"/"*pnt[ipnt]*"\". Please check!")
             end    
         end
     end
@@ -89,7 +90,7 @@ function rdjumult(wvdir, obs, pnt; coef=1.2310680e-07)
         for ifl = 2:nfl0
             wave_pnt = vcat(wave_pnt,Float64.(wave[ifl,ipnt].wave))
         end
-#         println("obs name = ", point[ipnt],", head time = ",
+#         println("obs name = ", pnt[ipnt],", head time = ",
 #            wave[ifl,ipnt].headtime, ", hz = ",
 #            wave[ifl,ipnt].hz, ", (nwave,nch) = ",(wave[ifl,ipnt].nwave,wave[ifl,ipnt].nch), 
 #            ", chid", wave[ifl,ipnt].chid
@@ -99,8 +100,10 @@ function rdjumult(wvdir, obs, pnt; coef=1.2310680e-07)
         waveF[:,icol1:icol2] = wave_pnt[:]
     end
     waveF = waveF * coef
-    for ich=1:nch
-        waveF[1:nwave,ich] = waveF[1:nwave,ich] .- sum(waveF[1:nwave,ich])/nwave
+    if rm_offset >0
+        for ich=1:nch
+            waveF[1:nwave,ich] = waveF[1:nwave,ich] .- sum(waveF[1:nwave,ich])/nwave
+        end
     end
 # println(headtime)
 # println(nwave)

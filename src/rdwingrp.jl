@@ -36,3 +36,14 @@ function datatowv(data,spsize,hz)
   end
   return wave
 end
+function flnmck(flnm)
+  nfl = length(flnm)
+  flJU = String[]
+  for ifl = 1:nfl
+    ck_res = occursin(r"[0-9]{8}.[0-9]{2}", flnm[ifl])
+    if ck_res
+	   push!(flJU, flnm[ifl])
+	end
+  end
+  return flJU
+end

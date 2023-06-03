@@ -36,6 +36,7 @@ JU410で記録した win formatのファイルを読む関数
   * rm_offset=1：オフセットを除いた波形を返す．
 * 返す値：named tupleで返している．
 * wave = rdju( ) のように返した場合
+  * wave.obs：測定名
   * wave.headtime：先頭時刻を配列で返す．［年，月，日，時，分，秒］
   * wave.nwave：波形のサンプル数/チャンネル
   * wave.hz：サンプリング周波数

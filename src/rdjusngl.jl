@@ -83,5 +83,5 @@ function rdjusngl(wvdir, obs ; coef=1.2310680e-07, rm_offset=1)
 # println(nch)
 # print_matrix_i("temp.txt",wave[1,1].wave)
 # print_matrix("temp2.txt",waveF)
-    return (;headtime, nwave, hz, nch, chid, waveF)
+    return (;obs, headtime, nwave, hz, nch, chid, waveF)
 end

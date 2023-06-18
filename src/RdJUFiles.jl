@@ -2,7 +2,7 @@ module RdJUFiles
 
 using Printf
 
-export rdwin1_ch, rdjumult, rdjusngl, Wavedata
+export rdwin1_ch, rdjumult, rdjusngl, wvinfo, Wavedata
 
 include("Wavedata.jl") # mutable struct Wavedata
 

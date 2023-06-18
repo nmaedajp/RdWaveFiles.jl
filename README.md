@@ -35,15 +35,15 @@ JU410で記録した win formatのファイルを読む関数
   * coef=1.2310680e-07：地動換算係数をゲイン ×100 のときの値を初期設定としている．
   * rm_offset=1：オフセットを除いた波形を返す．
 * 返す値：named tupleで返している．
-* wave = rdju( ) のように返した場合
-  * wave.obs：測定名
-  * wave.headtime：先頭時刻を配列で返す．［年，月，日，時，分，秒］
-  * wave.nwave：波形のサンプル数/チャンネル
-  * wave.hz：サンプリング周波数
-  * wave.nch：チャンネル数
+* wave = rdju*( ) のようにした場合，mutable struct Wavedataで返す．
+  * wave.obs：測定名：文字型変数
+  * wave.headtime：先頭時刻を整数型配列で返す．［年，月，日，時，分，秒］
+  * wave.nwave：波形のサンプル数/チャンネル：整数型変数
+  * wave.nch：チャンネル数：整数型変数
+  * wave.hz：サンプリング周波数：整数型変数
+  * wave.t：先頭からの時間 単位［s］：実数型変数
   * wave.chid：チャンネルID．ju410で設定している値．文字型ベクトル
   * wave.waveF：波形データ：実数型配列．大きさは (nwave，nch)
-
 
 [![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://nmaedajp.github.io/RdJUFiles.jl/stable/)
 [![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://nmaedajp.github.io/RdJUFiles.jl/dev/)

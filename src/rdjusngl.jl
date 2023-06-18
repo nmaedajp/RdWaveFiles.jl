@@ -76,12 +76,13 @@ function rdjusngl(wvdir, obs ; coef=1.2310680e-07, rm_offset=1)
           waveF[1:nwave,ich] = waveF[1:nwave,ich] .- sum(waveF[1:nwave,ich])/nwave
       end
     end
-    # println(headtime)
+ # println(headtime)
 # println(nwave)
 # println(hz)
 # println(chid)
 # println(nch)
 # print_matrix_i("temp.txt",wave[1,1].wave)
 # print_matrix("temp2.txt",waveF)
-    return (;obs, headtime, nwave, hz, nch, chid, waveF)
+    t = [(iwave-1)/hz for iwave=1:nwave];
+    return Wavedata(obs, headtime, nwave, nch, hz, t, chid, waveF)
 end

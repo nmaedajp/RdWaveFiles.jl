@@ -14,4 +14,5 @@ include("rdjumult.jl")
 include("rdjusngl.jl")
 
 include("wvinfo.jl")  # print Wavedata infomation
+include("chsel.jl")   # extract CHs in Wavedata  
 end

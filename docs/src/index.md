@@ -42,6 +42,27 @@ JU410で記録した win formatのファイルを読む関数
   * wave.nch：チャンネル数
   * wave.chid：チャンネルID．ju410で設定している値．文字型ベクトル
   * wave.waveF：波形データ：実数型配列．大きさは (nwave，nch)
+
+## chsel
+
+* chsel(wave, ch)
+  * mutable struct Wavedata のデータから，特定のチャンネルを抽出して，mutable struct Wavedataで返す．
+  * 入力：wave：mutable struct Wavedata
+  * ch　： 抽出するチャンネル．chid ではなく，何番目のチャンネルなのかを指定する．
+
+## wavelist
+
+* フォルダ内にある win ファイルの情報をリストアップする．
+* データ編集（切り出し）の際のコピーミスなどの確認を行う．
+
+* wvlist_s(wvfolder,obs,flout)
+  * 図１のファイル構造に従うフォルダの下にある winファイルのリストを作成する．
+  * flout：ファイルの出力先．"" とすると，標準出力にリストを出力する．
+
+* wvlist_m(wvfolder,obs,pnt,flout)
+  * 図２のファイル構造に従うフォルダの下にある winファイルのリストを作成する．
+  * flout：ファイルの出力先．"" とすると，標準出力にリストを出力する．
+
   
 Documentation for [RdJUFiles](https://github.com/nmaedajp/RdJUFiles.jl).
 

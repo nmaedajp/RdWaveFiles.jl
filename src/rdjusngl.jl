@@ -41,14 +41,14 @@ function rdjusngl(wvdir, obs ; coef=1.2310680e-07, rm_offset=1)
 # check for hz among files
     for ifl = 2:nfl0
         if wave[ifl].hz != wave[1].hz
-            println((ifl,ipnt,wave[ifl].hz, wave[1].hz))
+            println((ifl,wave[ifl].hz, wave[1].hz))
             error("sampling rate is different among points and files at \""*obs*"/"*"\". Please check!")
         end    
     end
 # check for nwave among files
     for ifl = 1:nfl0
         if wave[ifl].nwave != wave[1].nwave
-            println((ifl,ipnt,wave[ifl].nwave, wave[1].nwave))
+            println((ifl,wave[ifl].nwave, wave[1].nwave))
             error("no of wavedata is different among points and files at \""*obs*"/"*"\". Please check!")
         end    
     end

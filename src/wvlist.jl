@@ -5,10 +5,9 @@ function wvlist_m(wvfolder,obs,pnt,flout)
      end
     for iobs =1:nobs
         for ipnt =1:npoint
+            println(obs[iobs], " ", pnt[ipnt])
             if(length(flout) >0)
                 println(fl, obs[iobs], " ", pnt[ipnt])
-            else
-                println(obs[iobs], " ", pnt[ipnt])
             end
             folder = joinpath(wvfolder, obs[iobs], pnt[ipnt])
             wvfl = RdJUFiles.flnmck(readdir(folder))
@@ -19,14 +18,13 @@ function wvlist_m(wvfolder,obs,pnt,flout)
                 data = read(flnm);
                 wave = rdwin1_ch(data)
                 szdata = sizeof(data)
+                println(" ", wvfl[ifl], " ", wave.headtime, ", ", 
+                        wave.hz, " Hz, ", (wave.nwave, wave.nch), 
+                        ", chid ", wave.chid,", file size ",szdata)
                 if(length(flout) >0)
                     println(fl, " ", wvfl[ifl], " ", wave.headtime, ", ", 
                         wave.hz, " Hz, ", (wave.nwave, wave.nch), 
                         ", chid ", wave.chid, ", file size ",szdata)
-                else
-                    println(" ", wvfl[ifl], " ", wave.headtime, ", ", 
-                    wave.hz, " Hz, ", (wave.nwave, wave.nch), 
-                      ", chid ", wave.chid,", file size ",szdata)
                 end
              end
         end
@@ -42,10 +40,9 @@ function wvlist_s(wvfolder,obs,flout)
        fl = open(flout,"w")
     end
     for iobs =1:nobs
+        println(obs[iobs])
         if(length(flout) >0)
             println(fl, obs[iobs])
-        else
-            println(obs[iobs])
         end
         folder = joinpath(wvfolder, obs[iobs])
         wvfl = RdJUFiles.flnmck(readdir(folder))
@@ -56,14 +53,13 @@ function wvlist_s(wvfolder,obs,flout)
             data = read(flnm);
             wave = rdwin1_ch(data)
             szdata = sizeof(data)
+            println(" ", wvfl[ifl], " ", wave.headtime, ", ", 
+                    wave.hz, " Hz, ", (wave.nwave, wave.nch), 
+                    ", chid ", wave.chid, ", file size ",szdata)
             if(length(flout) >0)
                 println(fl, " ", wvfl[ifl], " ", wave.headtime, ", ", 
                     wave.hz, " Hz, ", (wave.nwave, wave.nch), 
                     ", chid ", wave.chid, ", file size ",szdata)
-            else
-                println(" ", wvfl[ifl], " ", wave.headtime, ", ", 
-                wave.hz, " Hz, ", (wave.nwave, wave.nch), 
-                ", chid ", wave.chid, ", file size ",szdata)
             end
         end
     end

@@ -70,11 +70,11 @@ JU410で記録した win formatのファイルを読む関数
 
 * wvlist_s(wvfolder,obs,flout)
   * 図１のファイル構造に従うフォルダの下にある winファイルのリストを作成する．
-  * flout：ファイルの出力先．"" とすると，標準出力にリストを出力する．
+  * flout：ファイルの出力先．標準出力にもリストを出力する
 
 * wvlist_m(wvfolder,obs,pnt,flout)
   * 図２のファイル構造に従うフォルダの下にある winファイルのリストを作成する．
-  * flout：ファイルの出力先．"" とすると，標準出力にリストを出力する．
+  * flout：ファイルの出力先．標準出力にもリストを出力する．
 
 
 [![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://nmaedajp.github.io/RdJUFiles.jl/stable/)

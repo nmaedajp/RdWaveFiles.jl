@@ -51,6 +51,6 @@ jobs:
       - run: |
           julia --project=docs -e '
             using Documenter: DocMeta, doctest
-            using RdJUFiles
-            DocMeta.setdocmeta!(RdJUFiles, :DocTestSetup, :(using RdJUFiles); recursive=true)
-            doctest(RdJUFiles)'
+            using RdWaveFiles
+            DocMeta.setdocmeta!(RdWaveFiles, :DocTestSetup, :(using RdWaveFiles); recursive=true)
+            doctest(RdWaveFiles)'

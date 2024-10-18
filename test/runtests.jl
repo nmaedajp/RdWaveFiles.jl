@@ -1,4 +1,4 @@
-using RdJUFiles
+using RdWaveFiles
 using Test
 
 wvdir="./test"

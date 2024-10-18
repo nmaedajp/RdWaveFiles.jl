@@ -1,4 +1,4 @@
-module RdJUFiles
+module RdWaveFiles
 
 using Printf
 

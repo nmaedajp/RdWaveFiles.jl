@@ -1,6 +1,7 @@
-# RdJUFiles
+# RdWaveFiles
 
-JU410で記録した win formatのファイルを読む関数
+* JU410で記録した win formatのファイルを読む関数
+* GL900 で記録したファイルを読む関数
 
 ## rdwin1_ch
 

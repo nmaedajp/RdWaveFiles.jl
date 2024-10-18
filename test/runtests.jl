@@ -29,7 +29,7 @@ println("sensor name = ",pnt)
 #        -128926  168497  -1193437  -4692  -195374  -1044894
 #        -128646  168944  -1193818  -4117  -194632  -1043641
 #        -128359  168581  -1193625  -3650  -195388  -1043693]
-@testset "RdJUFiles.jl" begin
+@testset "RdWaveFiles.jl" begin
 #    @test waveml.headtime  == [2022,10,18,17,58,0]
 #    @test wavesg1.headtime == [2022,10,18,17,58,0]
 #    @test wavesg2.headtime == [2022,10,18,17,58,0]

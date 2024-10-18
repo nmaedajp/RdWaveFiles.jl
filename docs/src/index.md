@@ -66,11 +66,11 @@ CurrentModule = RdWaveFiles
   * flout：ファイルの出力先．"" とすると，標準出力にリストを出力する．
 
   
-Documentation for [RdJUFiles](https://github.com/nmaedajp/RdJUFiles.jl).
+Documentation for [RdWaveFiles](https://github.com/nmaedajp/RdWaveFiles.jl).
 
 ```@index
 ```
 
 ```@autodocs
-Modules = [RdJUFiles]
+Modules = [RdWaveFiles]
 ```

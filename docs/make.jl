@@ -4,7 +4,7 @@ using Documenter
 DocMeta.setdocmeta!(RdWaveFiles, :DocTestSetup, :(using RdWaveFiles); recursive=true)
 
 makedocs(;
-    modules=[RdJUFiles],
+    modules=[RdWaveFiles],
     authors="Naoki Maeda <fnkyksj@gmail.com> and contributors",
     repo="https://github.com/nmaedajp/RdWaveFiles.jl/blob/{commit}{path}#{line}",
     sitename="RdWaveFiles.jl",

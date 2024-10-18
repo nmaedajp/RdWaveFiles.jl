@@ -1,16 +1,16 @@
-using RdJUFiles
+using RdWaveFiles
 using Documenter
 
-DocMeta.setdocmeta!(RdJUFiles, :DocTestSetup, :(using RdJUFiles); recursive=true)
+DocMeta.setdocmeta!(RdWaveFiles, :DocTestSetup, :(using RdWaveFiles); recursive=true)
 
 makedocs(;
     modules=[RdJUFiles],
     authors="Naoki Maeda <fnkyksj@gmail.com> and contributors",
-    repo="https://github.com/nmaedajp/RdJUFiles.jl/blob/{commit}{path}#{line}",
-    sitename="RdJUFiles.jl",
+    repo="https://github.com/nmaedajp/RdWaveFiles.jl/blob/{commit}{path}#{line}",
+    sitename="RdWaveFiles.jl",
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
-        canonical="https://nmaedajp.github.io/RdJUFiles.jl",
+        canonical="https://nmaedajp.github.io/RdWaveFiles.jl",
         edit_link="main",
         assets=String[],
     ),
@@ -20,6 +20,6 @@ makedocs(;
 )
 
 deploydocs(;
-    repo="github.com/nmaedajp/RdJUFiles.jl",
+    repo="github.com/nmaedajp/RdWaveFiles.jl",
     devbranch="main",
 )

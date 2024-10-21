@@ -10,7 +10,7 @@ function wvlist_m(wvfolder,obs,pnt,flout)
                 println(fl, obs[iobs], " ", pnt[ipnt])
             end
             folder = joinpath(wvfolder, obs[iobs], pnt[ipnt])
-            wvfl = RdJUFiles.flnmck(readdir(folder))
+            wvfl = RdWaveFiles.flnmck(readdir(folder))
 #             println(wvfl) 
             nfl=length(wvfl)
             for ifl=1:nfl
@@ -45,7 +45,7 @@ function wvlist_s(wvfolder,obs,flout)
             println(fl, obs[iobs])
         end
         folder = joinpath(wvfolder, obs[iobs])
-        wvfl = RdJUFiles.flnmck(readdir(folder))
+        wvfl = RdWaveFiles.flnmck(readdir(folder))
 #             println(wvfl) 
         nfl=length(wvfl)
         for ifl=1:nfl

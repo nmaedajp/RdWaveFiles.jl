@@ -46,6 +46,21 @@
   * wave.chid：チャンネルID．ju410で設定している値．文字型ベクトル
   * wave.waveF：波形データ：実数型配列．大きさは (nwave，nch)
 
+
+## rdgl900
+
+* rdgl900(folder, flnm, obs; hz = 100, nch = 6, 
+    chid = ["CH1", "CH2", "CH3", "CH4", "CH5", "CH6"], coef = [3.0e-5, 3.0e-5, 3.0e-5, 3.0e-3, 3.0e-3, 3.0e-3])
+* GL900で記録したCSVファイルを読み込み，mutable struct Wavedata として返す．
+  * folder：CSVファイルのある フォルダ名．文字型．String
+  * flnm：　CSVファイル名
+  * obs：　 測定名
+  * 初期値指定
+  * hz = 100 サンプリング周波数(Hz)．
+  * nch = 6 ：チャンネル数．VSE15ーAV200 のときは 6ch を使用している．
+  * chid ：チャンネルの名前．
+  * coef ：RANGE を 0.3 としたときの換算係数．換算後の単位は，CH1〜3 は m/s，CH4〜6 は m/s²．
+
 ## wvinfo
 
 * wvinfo(wave) 

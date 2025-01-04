@@ -1,6 +1,7 @@
 module RdWaveFiles
 
 using Printf, DelimitedFiles
+using GMT
 
 export rdwin1_ch, rdjumult, rdjusngl, wvinfo, chsel, Wavedata, wvlist_m, wvlist_s, rdgl900
 
@@ -19,5 +20,7 @@ include("wvinfo.jl")  # print Wavedata infomation
 include("chsel.jl")   # extract CHs in Wavedata  
 
 include("wvlist.jl")  # make list for winfiles
+
+include("plot_mch.jl")  # make plot of Wavedata
 
 end

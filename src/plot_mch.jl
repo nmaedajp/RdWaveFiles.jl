@@ -29,7 +29,7 @@ end
 function plot_mch(wave::Wavedata, t1::Float64, t2::Float64, y1::Float64, y2::Float64, title::String;
     width=16.0, height=1.5, offset=0.9, szmj=10, pw=0.25, pc=:black, 
     szttl=12, szlbl=10, szleg=10, 
-    xlabel="time [s]", unit="[m/s@+2@+]", rm_offset=true,  
+    xlabel="time [s]", unit="[m/s@+2@+]", rm_offset=true, stamp="", 
     plt_t0=true)
 #
 # wave:プロットする波形データ．
@@ -158,7 +158,7 @@ function plot_mch(wave::Wavedata, t1::Float64, t2::Float64, y1::Float64, y2::Flo
               MAP_LABEL_OFFSET="6p",
               MAP_TITLE_OFFSET="12p",
               MAP_FRAME_PEN="0.5p,black"),
-        time_stamp=""
+        time_stamp=stamp
     )
     if rm_offset
         GMT.plot(t[nt1:nt2], wave.waveF[nt1:nt2, wave.nch] .- avr[wave.nch], pen=(pw, pc))

@@ -3,7 +3,7 @@ module RdWaveFiles
 using Printf, DelimitedFiles
 using GMT
 
-export rdwin1_ch, rdjumult, rdjusngl, wvinfo, chsel, Wavedata, wvlist_m, wvlist_s, rdgl900
+export rdwin1_ch, rdjumult, rdjusngl, wvinfo, chsel, Wavedata, wvlist_m, wvlist_s, rdgl900, plot_mch
 
 include("Wavedata.jl") # mutable struct Wavedata
 

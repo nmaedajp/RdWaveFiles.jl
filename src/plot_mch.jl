@@ -26,8 +26,8 @@ end
 # (20250104)：wave，y1, y2 に型を付加．
 # (20250104)：rm_offset を true に．
 # 
-function plot_mch(wave::Wavedata, t1, t2, y1::Float64, y2::Float64, title;
-    width=16, height=1.5, offset=0.9, szmj=10, pw=0.25, pc=:black, 
+function plot_mch(wave::Wavedata, t1::Float64, t2::Float64, y1::Float64, y2::Float64, title::String;
+    width=16.0, height=1.5, offset=0.9, szmj=10, pw=0.25, pc=:black, 
     szttl=12, szlbl=10, szleg=10, 
     xlabel="time [s]", unit="[m/s@+2@+]", rm_offset=true,  
     plt_t0=true)

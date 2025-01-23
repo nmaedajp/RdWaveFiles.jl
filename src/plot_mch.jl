@@ -141,7 +141,7 @@ function plot_mch(wave::Wavedata, t1::Float64, t2::Float64, y1::Float64, y2::Flo
             text1=(text="ch "*wave.chid[ich])
            ),
            pos=(norm=(0,1), width=3.5, justify=:BL, offset=0.05, spacing=0.1),
-           conf=(FONT_ANNOT_PRIMARY="10p,Helvetica,black",)
+           conf=(FONT_ANNOT_PRIMARY="$(szleg)p,Helvetica,black",)
         )
     end
 # ch nch
@@ -170,6 +170,6 @@ function plot_mch(wave::Wavedata, t1::Float64, t2::Float64, y1::Float64, y2::Flo
         text1=(text="ch "*wave.chid[wave.nch])
        ),
        pos=(norm=(0,1), width=3.5, justify=:BL, offset=0.05, spacing=0.1),
-       conf=(FONT_ANNOT_PRIMARY="10p,Helvetica,black",)
+       conf=(FONT_ANNOT_PRIMARY="$(szleg)p,Helvetica,black",)
     )
 end

@@ -62,15 +62,19 @@
   * coef ：RANGE を 0.3 としたときの換算係数．換算後の単位は，CH1〜3 は m/s，CH4〜6 は m/s²．
 
 ## wvinfo
-
-* wvinfo(wave) 
+* wvinfo(wave; oneline = false) 
   * mutable struct Wavedata のデータに対して，その情報を出力する．
-  * println("測定名 = ", wave.obs)
-  * println("先頭時刻:　", wave.headtime)
-  * println("波形サンプル数:　",wave.nwave)
-  * println("サンプリング周波数:　",wave.hz)
-  * println("チャンネル数：　",wave.nch)
-  * println("チャンネルid: ", wave.chid)
+  * online = true とすると，1行で出力する．
+  * 1行表示のとき
+    * println(wave.obs, " ", wave.headtime, " ", wave.nwave, " ", wave.hz,
+      " ", wave.nch, " ", wave.chid)
+  * 複数行表示のとき
+    * println("測定名 = ", wave.obs)
+    * println("先頭時刻:　", wave.headtime)
+    * println("波形サンプル数:　",wave.nwave)
+    * println("サンプリング周波数:　",wave.hz)
+    * println("チャンネル数：　",wave.nch)
+    * println("チャンネルid: ", wave.chid)
 
 ## chsel
 
@@ -91,6 +95,9 @@
 * wvlist_m(wvfolder,obs,pnt,flout)
   * 図２のファイル構造に従うフォルダの下にある winファイルのリストを作成する．
   * flout：ファイルの出力先．標準出力にもリストを出力する．
+
+* plot_mch(wave::Wavedata, t1::Float64, t2::Float64, y1::Float64, y2::Float64, title::String; width=16.0, height=1.5, offset=0.9, szmj=10, pw=0.25, pc=:black,szttl=12, szlbl=10, szleg=10, xlabel="time [s]", unit="[m/s@+2@+]", rm_offset=true, stamp="", plt_t0=true)
+  * Wavedata タイプの波形をプロットする．
 
 
 [![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://nmaedajp.github.io/RdJUFiles.jl/stable/)
